@@ -5,6 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card align-middle justify-content-center align-items-center">
+                <h2></h2>
                 <div class="modal-body m-4">
                     <form action="{{ isset($position) ? route('update/position', $position->id) : route('create/position') }}" method="POST">
                         @csrf
@@ -53,11 +54,15 @@
                                 <td>{{ $position->reportsTo ? $position->reportsTo->name : 'None' }}</td>
                                 <td>
                                     <div class="d-flex">
-                                        <a href="{{ route('edit/position', $position->id) }}" class="btn btn-sm btn-primary">Edit</a>
+                                        <a href="{{ route('edit/position', $position->id) }}" class="btn btn-sm btn-primary me-2">
+                                            <i class="bi bi-pencil-square"></i> Edit
+                                        </a>
                                         <form action="{{ route('destroy/position', $position->id) }}" method="POST" style="display:inline;">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                                            <button type="submit" class="btn btn-sm btn-danger">
+                                                <i class="bi bi-trash"></i> Delete
+                                            </button>
                                         </form>
                                     </div>
                                 </td>
