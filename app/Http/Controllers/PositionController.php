@@ -37,6 +37,13 @@ class PositionController extends Controller
         return response()->json($position);
     }
 
+    public function edit($id)
+    {
+        $position = Position::findOrFail($id);
+        $positions = Position::all();
+        return view('home', compact('position', 'positions'));
+    }
+
     //update a position
     public function updatePosition(Request $request, $id)
     {
@@ -55,8 +62,12 @@ class PositionController extends Controller
             return response()->json($validator->errors(), 422);
         }
 
-        $position->update($request->all());
-        return response()->json($position);
+        $position->update([
+            'name' => $request->input('name'),
+            'reports_to' => $request->input('reports_to'),
+        ]);
+    
+        return redirect()->route('home')->with('success', 'Position updated successfully!');
     }
 
     //delete a position
@@ -65,20 +76,6 @@ class PositionController extends Controller
         $position=Position::findOrFail($id);
         $position->delete();
 
-        return response()->json(null,0);
-    }
-
-    //search
-    public function searchPosition(Request $request)
-    {
-        $query = Position::query();
-        
-        if ($request->has('search')) {
-            $query->where('name', 'like', '%' . $request->search . '%');
-        }
-        
-        $positions = $query->orderBy('name')->get();
-        
-        return response()->json($positions);
+        return response()->json(null,200);
     }
 }
