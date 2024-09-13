@@ -15,14 +15,14 @@
                         @endif
                         <div class="m-2 col-12 col-sm-12">
                             <div class="form-group">
-                                <label>Name:</label>
+                                <label class="fw-bold">Name:</label>
                                 <input type="text" class="form-control" name="name" value="{{ old('name', isset($position) ? $position->name : '') }}" required>
                             </div>
                         </div>
                         <div class="m-2 col-12 col-sm-12">
                             <div class="form-group">
-                                <label>Reports To:</label>
-                                <select class="form-control" id="reports_to" name="reports_to">
+                                <label class="fw-bold">Reports To:</label>
+                                <select class="form-select" id="reports_to" name="reports_to">
                                     <option value="">-- Select Position --</option>
                                     @foreach($positions as $pos)
                                         <option value="{{ $pos->id }}" {{ old('reports_to', isset($position) ? $position->reports_to : '') == $pos->id ? 'selected' : '' }}>
