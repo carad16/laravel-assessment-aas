@@ -39,6 +39,15 @@
                 </div>
             </div>
             <div class="mt-4 container justify-content-center align-items-center">
+                <div class="mb-3">
+                    <label for="positionFilter">Filter by Position:</label>
+                    <select id="positionFilter" class="form-select">
+                        <option value="">All Positions</option>
+                        @foreach ($positions as $position)
+                            <option value="{{ $position->name }}">{{ $position->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
                 <table id="positionsTable" class="display cell-border" style="width:100%">
                     <thead>
                         <tr>
@@ -71,18 +80,49 @@
                     </tbody>
                 </table>
             </div>
+            <div class="mt-5 p-4 card align-middle justify-content-center align-items-center">
+                <div id="orgchart_div"></div>
+            </div>
         </div>
     </div>
 </div>
 
 <script>
     $(document).ready(function() {
-        $('#positionsTable').DataTable({
-            paging: true, 
-            ordering: true, 
-            info: true, 
-            responsive: true 
+        //datatable with search and sort function
+        var table = $('#positionsTable').DataTable({
+            paging: true,
+            ordering: true,
+            info: true,
+            responsive: true,
+            "order": [[0, 'asc']],
+        });
+
+        //filter
+        $('#positionFilter').on('change', function() {
+            table.column(0).search(this.value).draw();
         });
     });
+</script>
+
+<script>
+    //visualizing the organization chart
+    google.charts.load('current', {packages:["orgchart"]});
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+        fetch('/api/viewOrganizationChart')
+            .then(response => response.json())
+            .then(data => {
+                var dataTable = new google.visualization.DataTable();
+                dataTable.addColumn('string', 'Name');
+                dataTable.addColumn('string', 'Reports To');
+
+                dataTable.addRows(data);
+
+                var chart = new google.visualization.OrgChart(document.getElementById('orgchart_div'));
+                chart.draw(dataTable, {allowHtml: true});
+            });
+    }
 </script>
 @endsection

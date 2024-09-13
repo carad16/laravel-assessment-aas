@@ -13,9 +13,9 @@ class Position extends Model
         'reports_to',
     ];
 
-    public function position()
+    public function reportsTo()
     {
-    return $this->belongsTo(Position::class, 'reports_to');
+        return $this->belongsTo(Position::class, 'reports_to');
     }
 
     public function positions()

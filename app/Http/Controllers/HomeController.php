@@ -23,7 +23,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $positions=Position::with('position')->get();
+        $positions=Position::with('reportsTo')->get();
         return view('home',compact('positions'));
     }
 }

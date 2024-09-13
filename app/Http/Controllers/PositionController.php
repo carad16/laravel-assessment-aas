@@ -62,12 +62,14 @@ class PositionController extends Controller
             return response()->json($validator->errors(), 422);
         }
 
-        $position->update([
-            'name' => $request->input('name'),
-            'reports_to' => $request->input('reports_to'),
-        ]);
+        $position->update($request->all());
+        $position->load('reportsTo');
     
-        return redirect()->route('home')->with('success', 'Position updated successfully!');
+        return response()->json([
+            'id' => $position->id,
+            'name' => $position->name,
+            'reports_to' => $position->reportsTo ? $position->reportsTo->name : null, 
+        ]);
     }
 
     //delete a position
@@ -77,5 +79,18 @@ class PositionController extends Controller
         $position->delete();
 
         return response()->json(null,200);
+    }
+
+    public function viewOrganizationChart()
+    {
+        $positions = Position::all();
+        $chartData = [];
+
+        foreach ($positions as $position) {
+            $supervisor = $position->reportsTo ? $position->reportsTo->name : null;
+            $chartData[] = [$position->name, $supervisor];
+        }
+
+        return response()->json($chartData);
     }
 }
