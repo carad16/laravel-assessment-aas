@@ -67,4 +67,18 @@ class PositionController extends Controller
 
         return response()->json(null,0);
     }
+
+    //search
+    public function searchPosition(Request $request)
+    {
+        $query = Position::query();
+        
+        if ($request->has('search')) {
+            $query->where('name', 'like', '%' . $request->search . '%');
+        }
+        
+        $positions = $query->orderBy('name')->get();
+        
+        return response()->json($positions);
+    }
 }

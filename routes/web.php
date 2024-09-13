@@ -19,9 +19,13 @@ Route::get('/', function () {
 });
 
 Route::controller(PositionController::class)->group(function () {
-    Route::get('create/position', 'createPosition')->middleware('auth')->name('create/position');
+    Route::post('create/position', 'createPosition')->middleware('auth')->name('create/position');
     Route::get('view/all/position', 'viewAllPosition')->middleware('auth')->name('view/all/position');
-    Route::post('view/position/{id}', 'viewAPosition')->name('view/position');
-    Route::post('update/position/{id}', 'updatePosition')->name('update/position');
-    Route::get('destroy/position/{id}', 'destroyPosition')->name('destroy/position');
+    Route::get('view/position/{id}', 'viewAPosition')->name('view/position');
+    Route::put('update/position/{id}', 'updatePosition')->name('update/position');
+    Route::delete('destroy/position/{id}', 'destroyPosition')->name('destroy/position');
 });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
