@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Position;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +23,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $positions=Position::with('position')->get();
+        return view('home',compact('positions'));
     }
 }
