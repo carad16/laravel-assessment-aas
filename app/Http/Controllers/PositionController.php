@@ -13,14 +13,18 @@ class PositionController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|unique:positions',
             'reports_to' => 'nullable|exists:positions,id',
-        ]);
+        ])->after(function ($validator) use ($request) {
+            if ($request->reports_to === null && Position::whereNull('reports_to')->exists()) {
+                $validator->errors()->add('reports_to', 'Only the CEO will report to nobody.');
+            }
+        });
 
         if ($validator->fails()) {
             return response()->json($validator->errors(), 422);
         }
     
         $position = Position::create($request->all());
-        return response()->json($position, 201);
+        return redirect()->route('home')->with($position, 'Position created successfully!');
     }
 
     //view all
@@ -56,8 +60,12 @@ class PositionController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|unique:positions,name,' . $id,
             'reports_to' => 'nullable|exists:positions,id',
-        ]);
-
+        ])->after(function ($validator) use ($request) {
+            if ($request->reports_to === null && Position::whereNull('reports_to')->exists()) {
+                $validator->errors()->add('reports_to', 'Only the CEO will report to nobody.');
+            }
+        });
+        
         if ($validator->fails()) {
             return response()->json($validator->errors(), 422);
         }
@@ -78,7 +86,7 @@ class PositionController extends Controller
         $position=Position::findOrFail($id);
         $position->delete();
 
-        return response()->json(null,200);
+        return redirect()->back();
     }
 
     public function viewOrganizationChart()
