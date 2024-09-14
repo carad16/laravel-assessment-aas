@@ -30,7 +30,7 @@ class PositionController extends Controller
     //view all
     public function viewAllPosition()
     {
-        $position=Position::with('position')->get();
+        $position=Position::with('reportsTo')->get();
         return response()->json($position);
     }
 
