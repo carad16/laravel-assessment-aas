@@ -33,7 +33,9 @@
 7. **Start the Server**
     - php artisan serve or php artisan --host= --port=8080
 
-Visit `http://localhost:8000` in your browser.
+    - Visit `http://localhost:8000` in your browser.
+
+8. **Register and Login**
 
 ## Configuration
 
