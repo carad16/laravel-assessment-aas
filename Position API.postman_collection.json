@@ -1,0 +1,125 @@
+{
+	"info": {
+		"_postman_id": "aadf2fc2-8112-4c6e-9126-52093d6425f9",
+		"name": "Position API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "38330496"
+	},
+	"item": [
+		{
+			"name": "Create Position",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8000/api/positions",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"positions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "View All Positions",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/positions",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"positions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "View a Position",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/positions/{id}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"positions",
+						"{id}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update a Position",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8000/api/positions/{id}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"positions",
+						"{id}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete a Position",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/positions/{id}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"positions",
+						"{id}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
