@@ -41,7 +41,7 @@
 
 Update the following in your `.env` file:
 
-- `DB_DATABASE`: Your database name (organization_chart)
+- `DB_DATABASE`: Your database name (organizational_chart)
 - `DB_USERNAME`: Your database user (root)
 - `DB_PASSWORD`: Your database password ()
 
